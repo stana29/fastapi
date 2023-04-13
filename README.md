@@ -1,1 +1,1 @@
-# fastapi
+FastAPI練習用リポジトリ
