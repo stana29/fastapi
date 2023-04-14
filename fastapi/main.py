@@ -2,8 +2,11 @@ import uvicorn
 from fastapi import FastAPI
 
 import pandas as pd
+import sql2
 
 app = FastAPI()
+#app.include_router(sql.router)
+app.include_router(sql2.router)
 
 @app.get("/")
 def get_root():
