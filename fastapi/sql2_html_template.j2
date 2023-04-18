@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title> items </title>
+    </head>
+    <body>
+    id  name   population
+    <br>
+    {% for item in items %}
+    {{ item.id }}   {{ item.name }} {{ item.population }}<br>
+    {% endfor %}
+    </body>
+</html>

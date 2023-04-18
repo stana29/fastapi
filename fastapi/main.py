@@ -3,10 +3,12 @@ from fastapi import FastAPI
 
 import pandas as pd
 import sql2
+import html_render
 
 app = FastAPI()
 #app.include_router(sql.router)
 app.include_router(sql2.router)
+app.include_router(html_render.router)
 
 @app.get("/")
 def get_root():
