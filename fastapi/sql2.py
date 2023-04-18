@@ -1,46 +1,13 @@
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
-from jinja2 import Template, Environment, FileSystemLoader
-from pydantic import BaseModel
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, relationship
-from sqlalchemy.schema import Column, ForeignKey
-from sqlalchemy import Integer, String
+from jinja2 import Environment, FileSystemLoader
+
+from sql_database import session
+from sql_models import City, Person
+from schemas import CityInfo
 
 router = APIRouter(prefix="/sql2")
 
-with open('password.txt', mode="r") as f:
-    password = f.readline()
-
-DATABASE_URL = f"postgresql://postgres:{password}@localhost:5432/mydb2"
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-session = SessionLocal()
-
-class Base(DeclarativeBase):
-    pass
-
-class City(Base):
-    __tablename__ = "cities"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    population = Column(Integer)
-    def __repr__(self):
-        return self.name
-    
-class CityInfo(BaseModel):
-    name: str
-    population: int
-
-
-class Person(Base):
-    __tablename__ = "persons"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    city_id = Column(Integer, ForeignKey("cities.id"))
-
-
-Base.metadata.create_all(engine)
 
 @router.get("/test/")
 def test():
@@ -52,9 +19,10 @@ def test():
 
 @router.get("/test2/")
 def test2():
-    city_a = session.query(City).get(1)
-    city_a.name = "fuga"
-    session.commit()
+    filtered = session.query(City).filter(City.id == 5)
+    if filtered:
+        filtered.first().name = "fuga"
+        session.commit()
     return get_all_cities_json()
 
 
@@ -69,7 +37,7 @@ def test3():
 
 @router.get("/all/")
 def get_all_cities_json():
-    response = session.query(City).all()
+    response = session.query(City).order_by(City.id).all()
     return response
 
 @router.delete("/all/")
