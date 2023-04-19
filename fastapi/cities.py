@@ -6,7 +6,7 @@ from sql_database import session
 from sql_models import City, Person
 from schemas import CityInfo
 
-router = APIRouter(prefix="/sql2")
+router = APIRouter(prefix="/sql2/city")
 
 
 @router.get("/test/")
@@ -44,7 +44,7 @@ def get_all_cities_json():
 def delete_all():
     session.query(City).delete()
     session.commit()
-    return {"message": "all users deleted"}
+    return {"message": "all persons deleted"}
 
 
 @router.delete("/{id}/")

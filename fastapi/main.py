@@ -2,12 +2,12 @@ import uvicorn
 from fastapi import FastAPI
 
 import pandas as pd
-import sql2
+import cities
 import html_render
 
 app = FastAPI()
 # app.include_router(sql.router)
-app.include_router(sql2.router)
+app.include_router(cities.router)
 app.include_router(html_render.router)
 
 
