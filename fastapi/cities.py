@@ -6,7 +6,7 @@ from sql_database import session
 from sql_models import City, Person
 from schemas import CityInfo
 
-router = APIRouter(prefix="/sql2/city")
+router = APIRouter(prefix="/sql2/city", tags=["city"])
 
 
 @router.get("/test/")
@@ -67,7 +67,7 @@ env = Environment(loader=FileSystemLoader("./", encoding="utf8"))
 tmpl = env.get_template("city_list.html")
 
 
-@router.get("/city_list/", response_class=HTMLResponse)
+@router.get("/list/", response_class=HTMLResponse)
 def get_all_cities_html():
     return tmpl.render(items=get_all_cities_json())
 
