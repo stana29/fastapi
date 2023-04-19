@@ -2,14 +2,14 @@ from fastapi import APIRouter
 import psycopg2
 from pydantic import BaseModel
 
-with open('password.txt', mode="r") as f:
+with open("password.txt", mode="r") as f:
     password = f.readline()
 router = APIRouter(prefix="/sql")
 
-connection = psycopg2.connect(host='localhost',
-                              user='postgres',
-                              password=password,
-                              database='mydb')
+connection = psycopg2.connect(
+    host="localhost", user="postgres", password=password, database="mydb"
+)
+
 
 class UserInfo(BaseModel):
     name: str

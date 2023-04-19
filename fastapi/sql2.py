@@ -29,7 +29,6 @@ def test2():
 @router.get("/test3/")
 def test3():
     person = Person(name="taro", city_id=3)
-    print(person)
     session.add(person)
     session.commit()
     return
@@ -39,6 +38,7 @@ def test3():
 def get_all_cities_json():
     response = session.query(City).order_by(City.id).all()
     return response
+
 
 @router.delete("/all/")
 def delete_all():
@@ -62,15 +62,16 @@ def add_city(cityinfo: CityInfo):
     session.commit()
     return
 
-env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
-tmpl = env.get_template('sql2_html_template.j2')
+
+env = Environment(loader=FileSystemLoader("./", encoding="utf8"))
+tmpl = env.get_template("city_list.html")
+
 
 @router.get("/city_list/", response_class=HTMLResponse)
 def get_all_cities_html():
-    return tmpl.render(items = get_all_cities_json())
+    return tmpl.render(items=get_all_cities_json())
 
 
 @router.get("/{id}/")
 def get_city(id: int):
     return session.query(City).get(id)
-

@@ -7,14 +7,16 @@ from sqlalchemy import Integer, String
 
 from sql_database import Base
 
+
 class City(Base):
     __tablename__ = "cities"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     population = Column(Integer)
+
     def __repr__(self):
         return self.name
-    
+
 
 class Person(Base):
     __tablename__ = "persons"

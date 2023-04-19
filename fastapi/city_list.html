@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title> items </title>
+</head>
+<body>
+    {% set columns = ["id", "name", "population"] %}
+    <table>
+        <tr>
+            {% for column in columns%}
+            <td>{{column}}</td>
+            {% endfor %}
+        </tr>
+
+        {% for item in items %}
+        <tr bgcolor="{{ loop.cycle('#999999', '#BBBBBB')}}">
+            {% for column in columns %}
+            <td>{{ item[column] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>

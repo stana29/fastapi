@@ -18,6 +18,7 @@ template = Template(html)
 
 router = APIRouter(prefix="/responses", tags=["response"])
 
+
 @router.get("/html_sample", response_class=HTMLResponse)
 def html_return():
     html_response = template.render(name="HELLO WORLD")
