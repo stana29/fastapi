@@ -5,6 +5,8 @@ from jinja2 import Environment, FileSystemLoader
 from sql_database import session
 from sql_models import City, Person
 from schemas import CityInfo
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import select
 
 router = APIRouter(prefix="/sql2/city", tags=["city"])
 
@@ -28,9 +30,30 @@ def test2():
 
 @router.get("/test3/")
 def test3():
-    person = Person(name="taro", city_id=3)
+    person = Person(name="taro")
+    print(person.city)
+    city = City(name="a", population=155)
+    print(city.persons)
+    city.persons.append(person)
     session.add(person)
     session.commit()
+    print(city.id, city.population, city.name)
+    print(person.id, person.city_id, person.city.name, person.name)
+    person.name = "aiueo"
+    print(person in session.dirty)
+    session.flush()
+    print(person in session.dirty)
+    pid = person.id
+    person2 = session.execute(select(Person.name).where(Person.id == pid)).scalar_one()
+    print(person2)
+    return
+
+
+@router.get("/test4")
+def test4():
+    stmt = select(Person.id).join_from(City, Person).where(City.id < 20)
+    print(stmt)
+    print(session.execute(stmt).fetchall())
     return
 
 
