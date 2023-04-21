@@ -1,0 +1,22 @@
+services:
+  fastapi:
+    image: fastapi
+    container_name: fastapi
+    ports:
+      - 8000:8000
+    networks:
+      - backend
+  db:
+    image: postgres
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

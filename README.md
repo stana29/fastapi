@@ -13,3 +13,9 @@ FastAPI練習用リポジトリ
 - 4/20(木)
   - SQLAlchemyのドキュメントを読んで一部の実装を変更
   - テーブルの結合・データ取得に成功
+
+- 4/21(金)
+  - Dockerコンテナで起動するようにする
+  - API用Dockerfileを作成
+  - API用コンテナとSQL用コンテナを起動するdocker-composeを作成し、
+  API用コンテナからSQL接続する方法を確認中

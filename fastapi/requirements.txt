@@ -1,0 +1,5 @@
+uvicorn
+fastapi
+SQLAlchemy
+Jinja2
+psycopg2

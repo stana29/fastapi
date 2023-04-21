@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
 
-import pandas as pd
 import cities, persons
 import html_render
 
@@ -37,4 +36,4 @@ def post_num(message: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", reload=True, host="0.0.0.0")
