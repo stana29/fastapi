@@ -22,7 +22,7 @@ def test():
 @router.get("/test2/")
 def test2():
     filtered = session.query(City).filter(City.id == 5)
-    if filtered:
+    if filtered.first():
         filtered.first().name = "fuga"
         session.commit()
     return get_all_cities_json()
