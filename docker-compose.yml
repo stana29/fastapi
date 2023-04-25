@@ -1,11 +1,4 @@
 services:
-  fastapi:
-    image: fastapi_sample_api
-    container_name: api
-    ports:
-      - 8000:8000
-    networks:
-      - backend
   db:
     image: postgres
     container_name: db
@@ -14,9 +7,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: bridge
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+  fastapi:
+    build:
+      context: fastapi/
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - 8000:8000
